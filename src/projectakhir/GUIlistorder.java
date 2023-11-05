@@ -365,13 +365,24 @@ public class GUIlistorder extends javax.swing.JFrame {
 
 
      private void hapus(){
+        int row = tabeldeepclean.getSelectedRow();
+
+        if (row < 0) {
+            // Error if row not selected
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus");
+            return;
+        }
+        
+        // get value from first row
+        String nama = tabeldeepclean.getValueAt(row, 0).toString();
+
         int update= JOptionPane.showOptionDialog(this,"apakah yakin hapus data?","Hapus Data",
                 JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,null,null);
             if(update == JOptionPane.YES_OPTION){
             try{
                  Connection kon = KoneksiKashoes.koneksikashoesdB();
                  Statement st = kon.createStatement();
-                 String sql_del = "DELETE from deep_clean WHERE nama='"+"'";
+                 String sql_del = "DELETE from deep_clean WHERE nama='" + nama + "'";
                  st.execute(sql_del);
                  JOptionPane.showMessageDialog(null, "Data Berhasil Di Hapus");
                  table();
