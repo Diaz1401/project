@@ -146,9 +146,9 @@ public class GUIdashbord extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Anda berhasil Logout");
         
-        new GUIlogin().setVisible(true);
-        dispose();
-        
+        new GUIloginn().setDefaultCloseOperation(GUIloginn.DISPOSE_ON_CLOSE);
+        new GUIloginn().setVisible(true);
+
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void menudeepcleanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menudeepcleanMouseClicked
