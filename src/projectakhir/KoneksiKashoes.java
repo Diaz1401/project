@@ -18,7 +18,7 @@ public class KoneksiKashoes {
     public static Connection koneksikashoesdB() {
         String url = "jdbc:mysql://localhost:3306/kashoes";
         String user = "root";
-        String pass = "diaz";
+        String pass = "kashoes";
         try {
             koneksi = DriverManager.getConnection(url, user, pass);
             return koneksi;
