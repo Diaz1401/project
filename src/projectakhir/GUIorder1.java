@@ -7,7 +7,9 @@ package projectakhir;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,11 +19,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GUIorder1 extends javax.swing.JFrame {
 
+    public static Connection cn;
+    public static ResultSet rs;
+    public static Statement st;
+    public static PreparedStatement pst;
+
     /**
      * Creates new form GUIorder1
      */
     public GUIorder1() {
         initComponents();
+        LocalDate currentDate = LocalDate.now();
+        fieldtgl.setText(currentDate.toString());
     }
 
     /**
@@ -51,6 +60,7 @@ public class GUIorder1 extends javax.swing.JFrame {
         fieldnotel = new javax.swing.JTextField();
         fieldalamat = new javax.swing.JTextField();
         fieldjumlah = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,7 +138,7 @@ public class GUIorder1 extends javax.swing.JFrame {
                 fieldtglActionPerformed(evt);
             }
         });
-        getContentPane().add(fieldtgl, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 830, 190, -1));
+        getContentPane().add(fieldtgl, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 830, 210, -1));
 
         btorderfix.setText("Order");
         btorderfix.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +190,11 @@ public class GUIorder1 extends javax.swing.JFrame {
         });
         getContentPane().add(fieldjumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 540, 50, 30));
 
+        jLabel5.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel5.setText("Tanggal ");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 830, 60, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Group 16 (1).png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1922, -1));
 
@@ -193,11 +208,9 @@ public class GUIorder1 extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Anda berhasil Logout");
-
+        JOptionPane.showMessageDialog(this, "Anda berhasil Logout");
         new GUIloginn().setVisible(true);
         dispose();
-
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -226,44 +239,29 @@ public class GUIorder1 extends javax.swing.JFrame {
 
     private void btorderfixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btorderfixActionPerformed
         // TODO add your handling code here:
-       tambah();
-       table();
-       clear();
+        tambah();
+        table();
+        clear();
     }//GEN-LAST:event_btorderfixActionPerformed
 
     private void fieldnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldnamaActionPerformed
         // TODO add your handling code here:
-        if (fieldnama.getText().equals("")){
-            fieldnama.setText("");
-        }
     }//GEN-LAST:event_fieldnamaActionPerformed
 
     private void fieldnotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldnotelActionPerformed
         // TODO add your handling code here:
-        if (fieldnotel.getText().equals("")){
-            fieldnotel.setText("");
-        }
     }//GEN-LAST:event_fieldnotelActionPerformed
 
     private void fieldalamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldalamatActionPerformed
         // TODO add your handling code here:
-        if (fieldalamat.getText().equals("")){
-            fieldalamat.setText("");
-        }
     }//GEN-LAST:event_fieldalamatActionPerformed
 
     private void fieldtglActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldtglActionPerformed
         // TODO add your handling code here:
-        if (fieldtgl.getText().equals("")){
-            fieldtgl.setText("");
-        }
     }//GEN-LAST:event_fieldtglActionPerformed
 
     private void fielddeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fielddeskripsiActionPerformed
         // TODO add your handling code here:
-        if (fielddeskripsi.getText().equals("")){
-            fielddeskripsi.setText("");
-        }
     }//GEN-LAST:event_fielddeskripsiActionPerformed
 
     private void fieldjumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldjumlahActionPerformed
@@ -276,74 +274,32 @@ public class GUIorder1 extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 
-     private void tambah(){
-     try{
+    private void tambah() {
+        try {
+            cn = KoneksiKashoes.koneksikashoesdB();
+            st = cn.createStatement();
+            pst = cn.prepareStatement("INSERT INTO deep_clean (nama, no_telp, alamat, jenis_sepatu, jumlah_sepatu, tgl_masuk, deskripsi_pesanan) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-            Connection kon = KoneksiKashoes.koneksikashoesdB();
-            Statement st = kon.createStatement();
+            pst.setString(1, fieldnama.getText());
+            pst.setString(2, fieldnotel.getText());
+            pst.setString(3, fieldalamat.getText());
+            pst.setString(4, cmbjenis.getSelectedItem().toString());
+            pst.setString(5, fieldjumlah.getText());
+            pst.setString(6, fieldtgl.getText());
+            pst.setString(7, fielddeskripsi.getText());
 
-            PreparedStatement prs = kon.prepareStatement("INSERT INTO deep_clean (nama,no_telp,alamat,jenis_sepatu,jumlah_sepatu,tgl_masuk,deskripsi_pesanan) VALUES(?,?,?,?,?,?,?)"); 
-            
-            prs.setString(1, fieldnama.getText());
-            prs.setString(2, fieldnotel.getText());
-            prs.setString(3, fieldalamat.getText());
-            prs.setString(4, cmbjenis.getSelectedItem().toString());
-            prs.setString(5, fieldjumlah.getText());
-            prs.setString(6, fieldtgl.getText());
-            prs.setString(7, fielddeskripsi.getText());
-            prs.execute();
-             JOptionPane.showMessageDialog(null, "Pesanan sudah diterima");
-            }
-        catch(Exception e){
-           JOptionPane.showMessageDialog(null, "Pesanan belum diterima");
-           
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Pesanan sudah diterima");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Pesanan gagal disimpan: " + e.getMessage());
+
         }
-     
+
         new GUIdashbord().setVisible(true);
         dispose();
     }
-     private void clear(){
-        fieldnama.setText("");
-        fieldnotel.setText("");
-        fieldalamat.setText("");
-        cmbjenis.setSelectedItem("Pilih jenis");
-        fieldjumlah.setText("");
-        fieldtgl.setText("");
-        fielddeskripsi.setText("");
-     }
-     private void table(){    
-        
-         
-         Object header[] = {"nama","no_telp","alamat","jenis_sepatu","jumlah_sepatu","deskripsi_pesanan","tgl_masuk"};
-         DefaultTableModel data = new DefaultTableModel(null,header);
-         String sql_data = "SELECT nama,no_telp,alamat,jenis_sepatu,jumlah_sepatu,deskripsi_pesanan,tgl_masuk FROM deep_clean ORDER BY nama ASC";
-         
-         
-         try{
-             Connection kon = KoneksiKashoes.koneksikashoesdB();
-             Statement st = kon.createStatement();
-             ResultSet rs = st.executeQuery(sql_data);
-             while(rs.next()){
-                 String d1 = rs.getString(1);
-                 String d2 = rs.getString(2);
-                 String d3 = rs.getString(3);
-                 String d4 = rs.getString(4);
-                 String d5 = rs.getString(5);
-                 String d6 = rs.getString(6);
-                 String d7 = rs.getString(7);
 
-                
-                 
-                 String d[] = {d1,d2,d3,d4,d5,d6,d7};
-                 data.addRow(d);
-                 
-                 
-             }
-             
-         }
-         catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
-         }
+    private void clear() {
         fieldnama.setText("");
         fieldnotel.setText("");
         fieldalamat.setText("");
@@ -352,6 +308,33 @@ public class GUIorder1 extends javax.swing.JFrame {
         fieldtgl.setText("");
         fielddeskripsi.setText("");
     }
+
+    private void table() {
+        Object header[] = {"nama", "no_telp", "alamat", "jenis_sepatu", "jumlah_sepatu", "deskripsi_pesanan", "tgl_masuk"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        String sql_data = "SELECT nama, no_telp, alamat, jenis_sepatu, jumlah_sepatu, deskripsi_pesanan, tgl_masuk FROM deep_clean ORDER BY nama ASC";
+
+        try {
+            cn = KoneksiKashoes.koneksikashoesdB();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql_data);
+            while (rs.next()) {
+                String d1 = rs.getString(1);
+                String d2 = rs.getString(2);
+                String d3 = rs.getString(3);
+                String d4 = rs.getString(4);
+                String d5 = rs.getString(5);
+                String d6 = rs.getString(6);
+                String d7 = rs.getString(7);
+
+                String d[] = {d1, d2, d3, d4, d5, d6, d7};
+                data.addRow(d);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -403,6 +386,7 @@ public class GUIorder1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextField3;

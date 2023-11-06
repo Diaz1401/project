@@ -112,7 +112,7 @@ public class GUIloginn extends javax.swing.JFrame {
     private void btloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btloginMouseClicked
         // TODO add your handling code here:
         login();
-        
+        dispose();
     }//GEN-LAST:event_btloginMouseClicked
 
     private void login(){
