@@ -127,7 +127,7 @@ public class GUIsignup extends javax.swing.JFrame {
         // TODO add your handling code here:
        tambah();
        clear();
-       new GUIlogin().setVisible(true);
+       new GUIloginn().setVisible(true);
        dispose();
     }//GEN-LAST:event_btdaftarMouseClicked
 
@@ -140,7 +140,7 @@ public class GUIsignup extends javax.swing.JFrame {
 
     private void txtmasuk1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtmasuk1MouseClicked
         // TODO add your handling code here:
-        new GUIlogin().setVisible(true);
+        new GUIloginn().setVisible(true);
         dispose();
     }//GEN-LAST:event_txtmasuk1MouseClicked
 

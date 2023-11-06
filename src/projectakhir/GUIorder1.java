@@ -195,7 +195,7 @@ public class GUIorder1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Anda berhasil Logout");
 
-        new GUIlogin().setVisible(true);
+        new GUIloginn().setVisible(true);
         dispose();
 
     }//GEN-LAST:event_jLabel3MouseClicked
