@@ -4,9 +4,7 @@
  */
 package projectakhir;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,12 +13,16 @@ import javax.swing.table.DefaultTableModel;
  * @author LENOVO
  */
 public class GUIlistorder extends javax.swing.JFrame {
-
+    public static Connection cn;
+    public static ResultSet rs;
+    public static Statement st;
+    public static PreparedStatement pst;
     /**
      * Creates new form GUIlistorder
      */
     public GUIlistorder() {
         initComponents();
+        table();
     }
 
     /**
@@ -55,7 +57,6 @@ public class GUIlistorder extends javax.swing.JFrame {
         tabeldeepclean = new javax.swing.JTable();
         bteditD = new javax.swing.JLabel();
         bthapusD = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,20 +74,20 @@ public class GUIlistorder extends javax.swing.JFrame {
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 220, -1, -1));
 
         bteditR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Vector (2).png"))); // NOI18N
-        getContentPane().add(bteditR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1810, 210, -1, -1));
+        getContentPane().add(bteditR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1800, 210, -1, -1));
 
         bthapusR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Vector (3).png"))); // NOI18N
-        getContentPane().add(bthapusR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 210, -1, -1));
+        getContentPane().add(bthapusR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1830, 210, -1, -1));
 
         tabelrepaint.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane3.setViewportView(tabelrepaint);
@@ -109,20 +110,20 @@ public class GUIlistorder extends javax.swing.JFrame {
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 220, -1, -1));
 
         bteditU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Vector (2).png"))); // NOI18N
-        getContentPane().add(bteditU, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 210, -1, 20));
+        getContentPane().add(bteditU, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 210, -1, 20));
 
         bthapusU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Vector (3).png"))); // NOI18N
-        getContentPane().add(bthapusU, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 210, -1, -1));
+        getContentPane().add(bthapusU, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 210, -1, -1));
 
         tabelunyellowing.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(tabelunyellowing);
@@ -174,20 +175,15 @@ public class GUIlistorder extends javax.swing.JFrame {
 
         tabeldeepclean.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        tabeldeepclean.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabeldeepcleanMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tabeldeepclean);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 510, 250));
@@ -199,7 +195,7 @@ public class GUIlistorder extends javax.swing.JFrame {
                 bteditDMouseClicked(evt);
             }
         });
-        getContentPane().add(bteditD, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, 20));
+        getContentPane().add(bteditD, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, -1, 20));
 
         bthapusD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Vector (3).png"))); // NOI18N
         bthapusD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -208,16 +204,7 @@ public class GUIlistorder extends javax.swing.JFrame {
                 bthapusDMouseClicked(evt);
             }
         });
-        getContentPane().add(bthapusD, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, -1, -1));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/mdi_show.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, -1, 20));
+        getContentPane().add(bthapusD, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Group 20.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, -1));
@@ -233,47 +220,9 @@ public class GUIlistorder extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Anda berhasil Logout");
-
         new GUIlogin().setVisible(true);
         dispose();
-
     }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void tabeldeepcleanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabeldeepcleanMouseClicked
-        // TODO add your handling code here:
-        try {
-            java.sql.Connection kon = KoneksiKashoes.koneksikashoesdB();
-            String sql = "SELECT * FROM deep_clean WHERE nama ='"+"'";
-            Statement st = kon.createStatement();
-            ResultSet rs = (ResultSet) st.executeQuery(sql);
-           
-                    int bar = tabeldeepclean.getSelectedRow();
-                       String a = tabeldeepclean.getValueAt(bar,0).toString();
-                       String b = tabeldeepclean.getValueAt(bar,1).toString();
-                       String c = tabeldeepclean.getValueAt(bar,2).toString();
-                       String d = tabeldeepclean.getValueAt(bar,3).toString();
-                       String e = tabeldeepclean.getValueAt(bar,4).toString();
-                       String f = tabeldeepclean.getValueAt(bar,5).toString();
-                       String g = tabeldeepclean.getValueAt(bar,6).toString();
-                       
-                      
-                            
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-                
-
-            }
-        int bar = tabeldeepclean.getSelectedRow();
-        String a = tabeldeepclean.getValueAt(bar,0).toString();
-        String b = tabeldeepclean.getValueAt(bar,1).toString();
-        String c = tabeldeepclean.getValueAt(bar,2).toString();
-        String d = tabeldeepclean.getValueAt(bar,3).toString();
-        String e = tabeldeepclean.getValueAt(bar,4).toString();
-        String f = tabeldeepclean.getValueAt(bar,5).toString();
-        String g = tabeldeepclean.getValueAt(bar,6).toString();
-
-  
-    }//GEN-LAST:event_tabeldeepcleanMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
@@ -286,17 +235,10 @@ public class GUIlistorder extends javax.swing.JFrame {
         table();
     }//GEN-LAST:event_jLabel14MouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-        table();
-    }//GEN-LAST:event_jLabel7MouseClicked
-
     private void bthapusDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bthapusDMouseClicked
         // TODO add your handling code here:
         hapus();
         table();
-        edit();
-        
     }//GEN-LAST:event_bthapusDMouseClicked
 
     private void bteditDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bteditDMouseClicked
@@ -305,66 +247,85 @@ public class GUIlistorder extends javax.swing.JFrame {
         table();
     }//GEN-LAST:event_bteditDMouseClicked
 
-    private void table(){    
-        
-         
-         Object header[] = {"nama","no_telp","alamat","jenis_sepatu","jumlah_sepatu","deskripsi_pesanan","tgl_masuk"};
-         DefaultTableModel data = new DefaultTableModel(null,header);
-         String sql_data = "SELECT nama,no_telp,alamat,jenis_sepatu,jumlah_sepatu,deskripsi_pesanan,tgl_masuk FROM deep_clean ORDER BY nama ASC";
-         
-         
-         try{
-             Connection kon = KoneksiKashoes.koneksikashoesdB();
-             Statement st = kon.createStatement();
-             ResultSet rs = st.executeQuery(sql_data);
-             while(rs.next()){
-                 String d1 = rs.getString(1);
-                 String d2 = rs.getString(2);
-                 String d3 = rs.getString(3);
-                 String d4 = rs.getString(4);
-                 String d5 = rs.getString(5);
-                 String d6 = rs.getString(6);
-                 String d7 = rs.getString(7);
+    private void table() {
+        Object header[] = {
+            "nama",
+            "no_telp",
+            "alamat",
+            "jenis_sepatu",
+            "jumlah_sepatu",
+            "deskripsi_pesanan",
+            "tgl_masuk"
+        };
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        String sql_data = "SELECT nama, no_telp, alamat, jenis_sepatu, jumlah_sepatu, deskripsi_pesanan, tgl_masuk FROM deep_clean ORDER BY nama ASC";
 
-                
-                 
-                 String d[] = {d1,d2,d3,d4,d5,d6,d7};
-                 data.addRow(d);
-                 
-                 
-             }
-             
+        try {
+            cn = KoneksiKashoes.koneksikashoesdB();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql_data);
+            while (rs.next()) {
+                String d1 = rs.getString(1);
+                String d2 = rs.getString(2);
+                String d3 = rs.getString(3);
+                String d4 = rs.getString(4);
+                String d5 = rs.getString(5);
+                String d6 = rs.getString(6);
+                String d7 = rs.getString(7);
+
+                String d[] = {d1, d2, d3, d4, d5, d6, d7};
+                data.addRow(d);
+            }
             tabeldeepclean.setModel(data);
-         }
-         catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
-         }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui: " + e.getMessage());
+        }
     }
+
     private void edit() {
-        try{
-            Connection kon = KoneksiKashoes.koneksikashoesdB();
-            Statement st = kon.createStatement();
-           
-                String sql_up = "UPDATE deep_clean SET nama='"
-                        + "',no_telp='" 
-                        + "',alamat='" 
-                        + "',jenis_sepatu='"
-                        + "',jumlah_sepatu='"
-                        + "',deskripsi_pesanan='"
-                        + "',tgl_masuk='" +"' WHERE nama='"+"'";
-                st.execute(sql_up);
-                JOptionPane.showMessageDialog(null, "Data Berhasil di Update");
-            
+        // Get the selected row index
+        int row = tabeldeepclean.getSelectedRow();
+
+        if (row < 0) {
+            // No row is selected, show an error message
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan disimpan");
+            return;
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
+
+        // Get the value of the "nama" column in the selected row
+        String nama = tabeldeepclean.getValueAt(row, 0).toString();
+
+        // Get the data from the form fields
+        String no_tlp = tabeldeepclean.getValueAt(row, 1).toString();
+        String alamat = tabeldeepclean.getValueAt(row, 2).toString();
+        String jenis = tabeldeepclean.getValueAt(row, 3).toString();
+        int jumlah = Integer.parseInt(tabeldeepclean.getValueAt(row, 4).toString()) ;
+        String deskripsi = tabeldeepclean.getValueAt(row, 5).toString();
+        String tgl = tabeldeepclean.getValueAt(row, 6).toString();
+
+        try {
+            String sql = "UPDATE deep_clean SET no_telp = ?, alamat = ?, jenis_sepatu = ?, jumlah_sepatu = ?, deskripsi_pesanan = ?, tgl_masuk = ? WHERE nama = ?";
+            cn = KoneksiKashoes.koneksikashoesdB();
+            pst = cn.prepareStatement(sql);
+
+            // Set the parameter values
+            pst.setString(1, no_tlp);
+            pst.setString(2, alamat);
+            pst.setString(3, jenis);
+            pst.setInt(4, jumlah);
+            pst.setString(5, deskripsi);
+            pst.setString(6, tgl);
+            pst.setString(7, nama);
+
+            // Execute the statement
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengubah data: " + e.getMessage());
         }
-    
-}
 
+    }
 
-
-     private void hapus(){
+    private void hapus() {
         int row = tabeldeepclean.getSelectedRow();
 
         if (row < 0) {
@@ -372,27 +333,31 @@ public class GUIlistorder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus");
             return;
         }
-        
+
         // get value from first row
         String nama = tabeldeepclean.getValueAt(row, 0).toString();
 
-        int update= JOptionPane.showOptionDialog(this,"apakah yakin hapus data?","Hapus Data",
-                JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,null,null);
-            if(update == JOptionPane.YES_OPTION){
-            try{
-                 Connection kon = KoneksiKashoes.koneksikashoesdB();
-                 Statement st = kon.createStatement();
-                 String sql_del = "DELETE from deep_clean WHERE nama='" + nama + "'";
-                 st.execute(sql_del);
-                 JOptionPane.showMessageDialog(null, "Data Berhasil Di Hapus");
-                 table();
-             }
-             catch(Exception e){
-                 JOptionPane.showMessageDialog(null, e);
-             }
-            
+        int update = JOptionPane.showOptionDialog(this, "apakah yakin hapus data?", "Hapus Data",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if (update == JOptionPane.YES_OPTION) {
+            try {
+                String sql_del = "DELETE from deep_clean WHERE nama = ?";
+                cn = KoneksiKashoes.koneksikashoesdB();
+                pst = cn.prepareStatement(sql_del);
+
+                // Set parameter
+                pst.setString(1, nama);
+
+                // Execute
+                pst.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Data Berhasil Di Hapus");
+           } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus data: " + e.getMessage());
+            }
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -446,7 +411,6 @@ public class GUIlistorder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
