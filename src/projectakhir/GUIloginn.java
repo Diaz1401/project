@@ -134,8 +134,9 @@ public class GUIloginn extends javax.swing.JFrame {
             if (rs.next()) {
                 // Kombinasi email dan kata sandi cocok dalam database
                 JOptionPane.showMessageDialog(null, "Login Berhasil");
+                
+                new GUIdashbord().setDefaultCloseOperation(GUIdashbord.DISPOSE_ON_CLOSE);
                 new GUIdashbord().setVisible(true);
-                dispose();
 
             } else {
                 // Kombinasi email dan kata sandi tidak cocok
